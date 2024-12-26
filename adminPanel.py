@@ -142,7 +142,7 @@ class AdminPanel(ttk.Frame):
 
         self.password_entry.delete(0, tk.END)
 
-        self.first_name_entry.delete(0, tk.END)
+        self.first_name_entry.delete(0, tk.END) 
         self.first_name_entry.insert(0, first_name)
 
         self.last_name_entry.delete(0, tk.END)
