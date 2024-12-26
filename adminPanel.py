@@ -97,10 +97,6 @@ class AdminPanel(ttk.Frame):
 
         self.users_tree.bind("<ButtonRelease-1>", self.on_user_select)
 
-    def load_users(self):
-        for row in self.db.session.query(User).all():
-            self.users_tree.insert("", "end", values=(row.id, row.username, row.first_name, row.last_name, row.is_admin))
-
     def create_user(self):
         username = self.username_entry.get()
         password = self.password_entry.get()
@@ -110,31 +106,31 @@ class AdminPanel(ttk.Frame):
 
         hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         new_user = User(username=username, password=hashed_password, first_name=first_name, last_name=last_name, is_admin=is_admin)
-        self.db.session.add(new_user)
-        self.db.session.commit()
+        self.master.db.session.add(new_user)
+        self.master.db.session.commit()
         self.load_users()
 
     def update_user(self):
         selected_item = self.users_tree.selection()[0]
         user_id = self.users_tree.item(selected_item, "values")[0]
 
-        user = self.db.session.query(User).filter_by(id=user_id).first()
+        user = self.master.db.session.query(User).filter_by(id=user_id).first()
         user.username = self.username_entry.get()
         user.password = bcrypt.hashpw(self.password_entry.get().encode(), bcrypt.gensalt())
         user.first_name = self.first_name_entry.get()
         user.last_name = self.last_name_entry.get()
         user.is_admin = self.is_admin_var.get()
 
-        self.db.session.commit()
+        self.master.db.session.commit()
         self.load_users()
 
     def delete_user(self):
         selected_item = self.users_tree.selection()[0]
         user_id = self.users_tree.item(selected_item, "values")[0]
 
-        user = self.db.session.query(User).filter_by(id=user_id).first()
-        self.db.session.delete(user)
-        self.db.session.commit()
+        user = self.master.db.session.query(User).filter_by(id=user_id).first()
+        self.master.db.session.delete(user)
+        self.master.db.session.commit()
         self.load_users()
 
     def on_user_select(self, event):
@@ -156,6 +152,10 @@ class AdminPanel(ttk.Frame):
 
 
     def load_users(self):
+        # Clean tree view
+        for item in self.users_tree.get_children():
+            self.users_tree.delete(item)
+
         for row in self.master.db.session.query(User).all():
             self.users_tree.insert("", "end", values=(row.id, row.username, row.first_name, row.last_name, row.is_admin))
 
