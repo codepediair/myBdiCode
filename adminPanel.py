@@ -198,14 +198,23 @@ class AdminPanel(ttk.Frame):
         # # print(self.settings["mode"])
 
     def export_to_excel(self):
-        try:
-            results = self.master.db.get_results_with_username()
-            df = pd.DataFrame(results, columns=["نام کاربر", "Self Destruction Scale", "Hope Scale", "MSPSS", "Anxiety Scale", "Depression Scale", "Fake Bad", "Scales", "زمان ثبت"])
-            df.to_excel("quiz_results.xlsx", index=False)
-            messagebox.showinfo("موفقیت", "نتایج به quiz_results.xlsx صادر شدند.")
-            self.open_file_location()
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
+        results = self.master.db.get_results_with_username()
+        data = []
+        for result, user in results:
+            data.append({
+                "Username": user,
+                "Self Destruction Scale": result.self_destruction_scale,
+                "Hope Scale": result.hope_scale,
+                "MSPSS": result.mspss,
+                "Anxiety Scale": result.anxiety_scale,
+                "Depression Scale": result.depression_scale,
+                "Fake Bad": result.Fake_bad,
+                "Scales": result.scales,
+                "Created At": result.created_at
+            })
+        df = pd.DataFrame(data)
+        df.to_excel("results.xlsx", index=False)
+        messagebox.showinfo("خروجی گرفتن اکسل", "خروجی اکسل با موفقیت ایجاد شد")
 
     def open_file_location(self):
         os.system("start .")
