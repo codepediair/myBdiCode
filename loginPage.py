@@ -19,6 +19,9 @@ class LoginPage(ttk.Frame):
         ttk.Button(self, text="ورود" ,command=self.login).pack(pady=10)
         ttk.Button(self, text="ثبت نام", command=self.master.show_register_page).pack()
 
+        #Bind Enter key to login
+        # self.master.bind('<Return>', self.login)
+
 
 
     def login(self):

@@ -5,6 +5,7 @@ from dbHelper import Result, User  # Replace 'your_database_module' with the act
 import json
 import pandas as pd
 import bcrypt
+import shutil
 
 
 # admin panel
@@ -186,6 +187,7 @@ class AdminPanel(ttk.Frame):
         
         ttk.Button(self.settings_frame, text="بازگشت به ورود", command=self.back_to_login).pack(pady=20)
         ttk.Button(self.settings_frame, text="خروجی گرفتن اکسل", command=self.export_to_excel).pack(pady=10)
+        ttk.Button(self.settings_frame, text="پشتیبان گیری از پایگاه داده", command=self.backup_database).pack(pady=10)
 
     def change_mode(self, event):
         self.settings["mode"] = event.widget.get()
@@ -215,6 +217,13 @@ class AdminPanel(ttk.Frame):
         df = pd.DataFrame(data)
         df.to_excel("results.xlsx", index=False)
         messagebox.showinfo("خروجی گرفتن اکسل", "خروجی اکسل با موفقیت ایجاد شد")
+
+    def backup_database(self):
+        backup_path = "backup/quiz_app_backup.db"
+        os.makedirs(os.path.dirname(backup_path), exist_ok=True)
+        shutil.copy("quiz_app.db", backup_path)
+        messagebox.showinfo("پشتیبان گیری از پایگاه داده", "پشتیبان گیری با موفقیت انجام شد")
+
 
     def open_file_location(self):
         os.system("start .")
