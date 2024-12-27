@@ -53,12 +53,16 @@ class CompQuizPage(ttk.Frame):
         self.update_score()
         self.current_question += 1
         if self.current_question < len(self.questions):
-            self.update_ui()
+            if self.current_question == 5 and self.var.get() < 2:
+                self.start_check()
+            else:
+                self.update_ui()
         else:
             self.submit_quiz()
 
     def back_to_previous_question(self):
         if self.current_question > 0:
+            self.decrease_score()
             self.current_question -= 1
             self.update_ui()
 
@@ -74,6 +78,18 @@ class CompQuizPage(ttk.Frame):
         score = self.var.get()
         self.score += score
 
+    def decrease_score(self):
+        score = self.var.get()
+        self.score -= score
+        print(self.score)
+
     def submit_quiz(self):
         self.master.db.insert_score(self.user.id, compactmode=self.score)
         self.master.show_login_page()
+
+    def start_check(self):
+        if self.score < 5:
+            messagebox.showinfo("نتیجه", "پابان آزمون موفق و بهروز باشید")
+            self.master.show_login_page()
+        else:
+            self.update_ui()

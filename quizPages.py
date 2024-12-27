@@ -10,7 +10,7 @@ class QuizPage(ttk.Frame):
         self.current_question = 0
         self.score = {}
         self.questions_list_index = 0
-        self.questions_list = ['self_destruction_scale', 'hope_scale', 'mspss', 'anxiety_scale', 'depression_scale', 'Fake_bad', 'scales']
+        self.questions_list = ['self_destruction_scale', 'mspss', 'depression_scale',  'anxiety_scale', 'depression_scale', 'Fake_bad', 'scales']
 
         ttk.Label(self, text=f"آزمون را با ارامش و با توجه به شرایط هفته گذشته جواب بدهید", font=("shabnam", 12)).pack(pady=40, anchor="center")
 
@@ -59,10 +59,7 @@ class QuizPage(ttk.Frame):
         self.current_question += 1
         print(self.current_question)
         if self.current_question < len(self.questions):
-            if self.current_question == 5:
-                self.start_check()
-            else:
-                self.update_ui()
+            self.update_ui()
         else:
             self.current_question = 0
             self.questions_list_index += 1
@@ -74,6 +71,7 @@ class QuizPage(ttk.Frame):
 
     def back_to_previous_question(self):
         if self.current_question > 0:
+            self.decrease_score()
             self.current_question -= 1
             self.update_ui()
 
@@ -87,6 +85,11 @@ class QuizPage(ttk.Frame):
     def update_score(self):
         score = self.var.get()
         self.score[self.questions_list[self.questions_list_index]] += score
+        print(self.score)
+
+    def decrease_score(self):
+        score = self.var.get()
+        self.score[self.questions_list[self.questions_list_index]] -= score
         print(self.score)
 
     def submit_quiz(self):
