@@ -17,6 +17,25 @@ class User(Base):
     last_name = Column(String, nullable=True)
     is_admin = Column(Integer, default=0)
 
+class Profile(Base):
+    __tablename__ = 'profiles'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    age = Column(Integer, nullable=True)
+    education = Column(String, nullable=True)
+    marige = Column(String, nullable=True)
+    military = Column(String, nullable=True)
+    childe = Column(String, nullable=True)
+    job = Column(String, nullable=True)
+    family = Column(Integer, nullable=True)
+    prop = Column(String, nullable=True)
+    religion = Column(String, nullable=True)
+    psychological = Column(String, nullable=True)
+    suicide = Column(String, nullable=True)
+    sickness = Column(String, nullable=True)
+    insurance = Column(String, nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User', backref='profile')
+
 class Result(Base):
     __tablename__ = 'results'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -75,3 +94,17 @@ class DBHelper:
     
     def get_results_with_username(self):
         return self.session.query(Result, User.username).join(User, Result.user_id == User.id).all()
+    
+    def is_profile_empty(self, user_id):
+        profile = self.session.query(Profile).filter_by(user_id=user_id).first()
+        if profile:
+            return False
+        return True
+    
+    def create_profile(self, user_id, age=None, education=None, marige=None, military=None, childe=None, job=None, family=None, prop=None, religion=None, psychological=None, suicide=None, sickness=None, insurance=None):
+        profile = Profile(user_id=user_id, age=age, education=education, marige=marige, military=military, childe=childe, job=job, family=family, prop=prop, religion=religion, psychological=psychological, suicide=suicide, sickness=sickness, insurance=insurance)
+        self.session.add(profile)
+        self.session.commit()
+
+    def get_profile(self, user_id):
+        return self.session.query(Profile).filter_by(user_id=user_id).first()
