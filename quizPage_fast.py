@@ -35,8 +35,7 @@ class CompQuizPage(ttk.Frame):
         self.radio_frame = ttk.Frame(self)
         self.radio_frame.pack(pady=10, anchor='center')
         for opt in (self.questions[self.current_question]["answers"]): 
-            ttk.Radiobutton(self.radio_frame, text=opt['text'], variable=self.var, value=opt['score']).pack(pady=5, anchor='w')
-
+            tk.Radiobutton(self.radio_frame, indicator=0, text=opt['text'], variable=self.var, value=opt['score'], font=("shabnam", 12), width=30, relief="flat", selectcolor="black", activebackground="white").pack(pady=5, anchor='e')
 
     def create_buttons(self):
         self.button_frame = ttk.Frame(self)
