@@ -50,7 +50,8 @@ class AdminPanel(ttk.Frame):
     def load_results(self):
         # for row in self.master.db.session.query(Result).all():
         for result, user in self.master.db.session.query(Result, User).join(User, Result.user_id == User.id).all():
-            self.results_tree.insert("", "end", values=(self.master.db.show_full_name(user), result.self_destruction_scale, result.hope_scale, result.mspss, result.anxiety_scale, result.depression_scale, result.Fake_bad, result.scales, result.created_at))
+            # self.results_tree.insert("", "end", values=(self.master.db.show_full_name(user), result.self_destruction_scale, result.hope_scale, result.mspss, result.anxiety_scale, result.depression_scale, result.Fake_bad, result.scales, result.created_at))
+            self.results_tree.insert("", "end", values=(self.master.db.show_full_name(user), "result.self_destruction_scale", result.hope_scale, result.mspss, result.anxiety_scale, result.depression_scale, result.Fake_bad, result.scales, result.created_at))
             # print(result.User.username)
 
     def create_users_tab(self):
