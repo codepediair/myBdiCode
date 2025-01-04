@@ -29,11 +29,11 @@ class AdminPanel(ttk.Frame):
         self.create_settings_tab()
 
     def create_results_tab(self):
-        self.results_tree = ttk.Treeview(self.results_tab, columns=("user_id", "self_destruction_scale", "hope_scale", "mspss", "anxiety_scale", "depression_scale", "Fake_bad", "scales", "created_at"), show="headings")
+        self.results_tree = ttk.Treeview(self.results_tab, columns=("user_id", "self_destruction_scale", "mspss", "hope_scale", "anxiety_scale", "depression_scale", "scales", "Fake_bad",  "created_at"), show="headings")
         self.results_tree.heading("user_id", text="User ID")
         self.results_tree.heading("self_destruction_scale", text="Self Destruction Scale")
-        self.results_tree.heading("hope_scale", text="Hope Scale")
         self.results_tree.heading("mspss", text="MSPSS")
+        self.results_tree.heading("hope_scale", text="Hope Scale")
         self.results_tree.heading("anxiety_scale", text="Anxiety Scale")
         self.results_tree.heading("depression_scale", text="Depression Scale")
         self.results_tree.heading("Fake_bad", text="Fake Bad")
@@ -50,8 +50,65 @@ class AdminPanel(ttk.Frame):
     def load_results(self):
         # for row in self.master.db.session.query(Result).all():
         for result, user in self.master.db.session.query(Result, User).join(User, Result.user_id == User.id).all():
-            # self.results_tree.insert("", "end", values=(self.master.db.show_full_name(user), result.self_destruction_scale, result.hope_scale, result.mspss, result.anxiety_scale, result.depression_scale, result.Fake_bad, result.scales, result.created_at))
-            self.results_tree.insert("", "end", values=(self.master.db.show_full_name(user), "result.self_destruction_scale", result.hope_scale, result.mspss, result.anxiety_scale, result.depression_scale, result.Fake_bad, result.scales, result.created_at))
+
+            # for report
+            reports = ["self_destruction_scale", "mspss", "hope_scale", "anxiety_scale", "depression_scale", "Fake_bad", "scales"]
+
+            # for destruction scale 
+            if 0 <= result.self_destruction_scale <= 5:
+                reports[0] = "فاقد افکار خودکشی"
+            elif 6<= result.self_destruction_scale <= 19:
+                reports[0] = "داشتن افکار خودکشی"
+            elif 20 <= result.self_destruction_scale <= 38:
+                reports[0] = "آمادگی جهت خود کشی"
+
+            # for mspss scale
+            if 12 < self.mspss <= 20:
+                reports[1] = "کم"
+            elif 20 < self.mspss <= 40:
+                reports[1] = "متوسط"
+            elif self.mspss > 40:
+                reports[1] = "زیاد"
+
+            
+            # for hope scale
+            if 0 <= self.hope_scale <= 3:
+                reports[2] = "نا امیدی حداقلی"
+            elif 4 <= self.hope_scale <= 8:
+                reports[2] = "نا امیدی خفیف"
+            elif 9 <= self.hope_scale <= 14:
+                reports[2] = "نا امیدی متوسط"
+            elif 15 <= self.hope_scale <= 20:
+                reports[2] = "نا امیدی شدید"
+            
+
+            # for anxiety scale
+            if 0 <= self.anxiety_scale <= 5:
+                reports[3] = "اضطراب خفیف"
+            elif 6 <= self.anxiety_scale <= 10:
+                reports[3] = "اضطراب متوسط"
+            elif 11 <= self.anxiety_scale <= 15:
+                reports[3] = "اضطراب نسبتا شدید"
+            elif 16 <= self.anxiety_scale <= 20:
+                reports[3] = "اضطراب شدید"
+
+
+            # for depression scale
+            if 0 <= self.depression_scale <= 11:
+                reports[4] = "اختلال افسردگی ندارد"
+            elif 12 <= self.depression_scale <= 20:
+                reports[4] = "اختلال افسردگی دارد"
+
+
+            # for fake bad
+            if self.Fake_bad > 20:
+                reports[6] = "احتمال تمارض"
+            else:
+                reports[6] = "عدم تمایل به تمارض"
+            
+
+            
+            self.results_tree.insert("", "end", values=(self.master.db.show_full_name(user), reports[0], reports[1], reports[2], reports[3], reports[4], result.scales, reports[6],  result.created_at))
             # print(result.User.username)
 
     def create_users_tab(self):

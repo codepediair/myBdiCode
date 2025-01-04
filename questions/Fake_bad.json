@@ -128,64 +128,64 @@
   {
     "question": "از زندگي جنسي ام راضي هستم",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "گاهي دروغ مي گويم",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "معمولا در پشت گردنم احساس درد مي كنم",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "فكر مي كنم اغلب مردم براي جلب كمك و همدردي ديگران بدبختيهاي خود را بزرگتر جلوه مي دهند",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "بيشتر مردم براي اين كه پيشرفت كنند دروغ مي گويند",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "اغلب مردم حاضرند حتي از راههاي غير عادلانه به منافع و مزايايي برسند",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "هرگز استفراغ و سرفه همراه با خون نداشته ام",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "زود خسته نمي شوم",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   },
   {
     "question": "هيچ وقت دچار سرگيجه نشده ام ، يا خيلي كم سرگيجه داشته ام",
     "answers": [
-      { "text": "خیر", "score": 0 },
-      { "text": "بله", "score": 1 }
+      { "text": "خیر", "score": 1 },
+      { "text": "بله", "score": 0 }
     ]
   }
 ]

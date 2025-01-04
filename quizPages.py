@@ -10,7 +10,7 @@ class QuizPage(ttk.Frame):
         self.current_question = 0
         self.score = {}
         self.questions_list_index = 0
-        self.questions_list = ['self_destruction_scale', 'mspss', 'depression_scale',  'anxiety_scale', 'depression_scale', 'Fake_bad', 'scales']
+        self.questions_list = ['self_destruction_scale', 'mspss', 'depression_scale',  'anxiety_scale', 'depression_scale' , 'scales', 'Fake_bad']
 
         ttk.Label(self, text=f"آزمون را با ارامش و با توجه به شرایط هفته گذشته جواب بدهید", font=("shabnam", 12)).pack(pady=40, anchor="center")
 
