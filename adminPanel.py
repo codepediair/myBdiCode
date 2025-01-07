@@ -63,45 +63,45 @@ class AdminPanel(ttk.Frame):
                 reports[0] = "آمادگی جهت خود کشی"
 
             # for mspss scale
-            if 12 < self.mspss <= 20:
+            if 12 < result.mspss <= 20:
                 reports[1] = "کم"
-            elif 20 < self.mspss <= 40:
+            elif 20 < result.mspss <= 40:
                 reports[1] = "متوسط"
-            elif self.mspss > 40:
+            elif result.mspss > 40:
                 reports[1] = "زیاد"
 
             
             # for hope scale
-            if 0 <= self.hope_scale <= 3:
+            if 0 <= result.hope_scale <= 3:
                 reports[2] = "نا امیدی حداقلی"
-            elif 4 <= self.hope_scale <= 8:
+            elif 4 <= result.hope_scale <= 8:
                 reports[2] = "نا امیدی خفیف"
-            elif 9 <= self.hope_scale <= 14:
+            elif 9 <= result.hope_scale <= 14:
                 reports[2] = "نا امیدی متوسط"
-            elif 15 <= self.hope_scale <= 20:
+            elif 15 <= result.hope_scale <= 20:
                 reports[2] = "نا امیدی شدید"
             
 
             # for anxiety scale
-            if 0 <= self.anxiety_scale <= 5:
+            if 0 <= result.anxiety_scale <= 5:
                 reports[3] = "اضطراب خفیف"
-            elif 6 <= self.anxiety_scale <= 10:
+            elif 6 <= result.anxiety_scale <= 10:
                 reports[3] = "اضطراب متوسط"
-            elif 11 <= self.anxiety_scale <= 15:
+            elif 11 <= result.anxiety_scale <= 15:
                 reports[3] = "اضطراب نسبتا شدید"
-            elif 16 <= self.anxiety_scale <= 20:
+            elif 16 <= result.anxiety_scale <= 20:
                 reports[3] = "اضطراب شدید"
 
 
             # for depression scale
-            if 0 <= self.depression_scale <= 11:
+            if 0 <= result.depression_scale <= 11:
                 reports[4] = "اختلال افسردگی ندارد"
-            elif 12 <= self.depression_scale <= 20:
+            elif 12 <= result.depression_scale <= 20:
                 reports[4] = "اختلال افسردگی دارد"
 
 
             # for fake bad
-            if self.Fake_bad > 20:
+            if result.Fake_bad > 20:
                 reports[6] = "احتمال تمارض"
             else:
                 reports[6] = "عدم تمایل به تمارض"
@@ -231,15 +231,12 @@ class AdminPanel(ttk.Frame):
         mode_combo = ttk.Combobox(self.settings_frame, width = 27, textvariable = mode, font=("shabnam", 12)) 
         
         # Adding combobox drop down list 
-        mode_combo['values'] = (
-            "کامل",
-            "سریع"
-        ) 
+        mode_combo['values'] = ("کامل","سریع") 
 
         mode_combo.bind("<<ComboboxSelected>>", self.change_mode)
 
         mode_combo.pack(pady=10)
-        mode_combo.current(1)
+        mode_combo.current(0)
         print(mode.get())
 
         

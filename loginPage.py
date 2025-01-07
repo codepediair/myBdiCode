@@ -65,7 +65,7 @@ class LoginPage(ttk.Frame):
         user = self.master.db.validate_user(username, password)
         if user:
             self.master.current_user = user
-            if self.master.db.is_profile_empty(user.id):
+            if self.master.db.is_profile_empty(user.id) and not user.is_admin:
                 self.show_profile_form(user)
             elif user.is_admin:  # is_admin
                 self.master.show_admin_panel()
