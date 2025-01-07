@@ -58,15 +58,15 @@ class QuizPage(ttk.Frame):
         self.update_score()
         self.current_question += 1
         print(self.current_question)
-        if self.current_question < len(self.questions):
-            self.update_ui()
-        else:
-            self.current_question = 0
-            self.questions_list_index += 1
-            if self.questions_list_index < len(self.questions_list):
-                self.load_questions(self.questions_list_index)
+        if self.questions_list_index < len(self.questions_list):
+            if self.current_question < len(self.questions):
+                self.update_ui()
             else:
-                self.submit_quiz()
+                self.current_question = 0
+                self.questions_list_index += 1
+                self.load_questions(self.questions_list_index)
+        else:
+            self.submit_quiz()
 
 
     def back_to_previous_question(self):
@@ -84,16 +84,18 @@ class QuizPage(ttk.Frame):
 
     def update_score(self):
         score = self.var.get()
-        self.score[self.questions_list[self.questions_list_index]] += score
+        if self.questions_list_index < 7:
+            self.score[self.questions_list[self.questions_list_index]] += score
         print(self.score)
 
     def decrease_score(self):
         score = self.var.get()
-        self.score[self.questions_list[self.questions_list_index]] -= score
+        if self.questions_list_index < 7:
+            self.score[self.questions_list[self.questions_list_index]] -= score
         print(self.score)
 
     def submit_quiz(self):
-        self.master.db.insert_score(self.user.id, self_destruction_scale=self.score['self_destruction_scale'], hope_scale=self.score['hope_scale'], mspss=self.score['mspss'], anxiety_scale=self.score['anxiety_scale'], depression_scale=self.score['depression_scale'], Fake_bad=self.score['Fake_bad'], scales=self.score['scales'])
+        self.master.db.insert_score(self.user.id, self_destruction_scale=self.score['self_destruction_scale'], mspss=self.score['mspss'], anxiety_scale=self.score['anxiety_scale'], depression_scale=self.score['depression_scale'], Fake_bad=self.score['Fake_bad'], scales=self.score['scales'])
         self.master.show_login_page()
         # pass
 
