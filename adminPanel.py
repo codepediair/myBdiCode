@@ -63,7 +63,7 @@ class AdminPanel(ttk.Frame):
                 reports[0] = "آمادگی جهت خود کشی"
 
             # for mspss scale
-            if 12 < result.mspss <= 20:
+            if result.mspss < 12 or 12 < result.mspss <= 20:
                 reports[1] = "کم"
             elif 20 < result.mspss <= 40:
                 reports[1] = "متوسط"
