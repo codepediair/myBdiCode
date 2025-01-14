@@ -209,6 +209,8 @@ class AdminPanel(ttk.Frame):
 
         self.is_admin_var.set(is_admin)
 
+        # self.show_profile_data(user_id)
+
 
     def load_users(self):
         # Clean tree view
@@ -219,36 +221,29 @@ class AdminPanel(ttk.Frame):
             self.users_tree.insert("", "end", values=(row.id, row.username, row.first_name, row.last_name, row.is_admin))
 
     def create_settings_tab(self):
-        ttk.Label(self.settings_tab, text="مد برنامه" , font=("shabnam", 16)).pack(pady=20)
+        self.settings_frame = ttk.Frame(self.settings_tab)
+        self.settings_frame.pack(pady=20)
+
+        ttk.Label(self.settings_frame, text="مد برنامه", font=("shabnam", 16)).pack(pady=20)
         with open("settings.json", "r") as f:
             self.settings = json.load(f)
 
-        self.settings_frame = ttk.Frame(self.settings_tab)
-        self.settings_frame.pack(pady=10)
+        mode = tk.StringVar(value=self.settings.get("mode", "کامل"))
 
+        # Create radio buttons for mode selection
+        ttk.Radiobutton(self.settings_frame, text="کامل", variable=mode, value="کامل", command=lambda: self.change_mode(mode.get())).pack(pady=5)
+        ttk.Radiobutton(self.settings_frame, text="سریع", variable=mode, value="سریع", command=lambda: self.change_mode(mode.get())).pack(pady=5)
 
-        mode = tk.StringVar() 
-        mode_combo = ttk.Combobox(self.settings_frame, width = 27, textvariable = mode, font=("shabnam", 12)) 
-        
-        # Adding combobox drop down list 
-        mode_combo['values'] = ("کامل","سریع") 
-
-        mode_combo.bind("<<ComboboxSelected>>", self.change_mode)
-
-        mode_combo.pack(pady=10)
-        mode_combo.current(0)
-        print(mode.get())
-
-        
         ttk.Button(self.settings_frame, text="بازگشت به ورود", command=self.back_to_login).pack(pady=20)
         ttk.Button(self.settings_frame, text="خروجی گرفتن اکسل", command=self.export_to_excel).pack(pady=10)
         ttk.Button(self.settings_frame, text="پشتیبان گیری از پایگاه داده", command=self.backup_database).pack(pady=10)
 
-    def change_mode(self, event):
-        self.settings["mode"] = event.widget.get()
+    def change_mode(self, mode):
+        self.settings["mode"] = mode
         with open("settings.json", "w") as f:
             json.dump(self.settings, f)
         messagebox.showinfo("تغییر مد", "مد برنامه با موفقیت تغییر یافت")
+        print(self.settings["mode"])
         # if event.widget.get() == "کامل":
         #     # self.master.style.theme_use("forest-dark")
         #     print(event.widget.get())
